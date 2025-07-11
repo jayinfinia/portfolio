@@ -1,0 +1,370 @@
+/* ═══════════════════════════════════════════════════════════════
+   JETON-INSPIRED LANDING PAGE STYLES
+   Modern, responsive design with 3D animations
+   ═══════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #ef4444 0%, #fb923c 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3D SLINKY ANIMATION - JETON INSPIRED
+   ═══════════════════════════════════════════════════════════════ */
+
+.disc-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+.disc-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: slinkyRotate 12s linear infinite;
+}
+
+.disc {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.08) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4),
+        0 0 20px rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+}
+
+.disc-1 {
+    animation: slinkyChase1 3s ease-in-out infinite;
+    opacity: 1;
+}
+
+.disc-2 {
+    animation: slinkyChase2 3s ease-in-out infinite;
+    opacity: 0.9;
+}
+
+.disc-3 {
+    animation: slinkyChase3 3s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+.disc-4 {
+    animation: slinkyChase4 3s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+.disc-5 {
+    animation: slinkyChase5 3s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+/* Slinky chase animation - each ring follows the previous one */
+@keyframes slinkyChase1 {
+    0% { 
+        transform: translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+    25% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(90deg) scale(0.95);
+    }
+    50% { 
+        transform: translateZ(-40px) rotateX(30deg) rotateY(180deg) scale(0.9);
+    }
+    75% { 
+        transform: translateZ(-60px) rotateX(45deg) rotateY(270deg) scale(0.85);
+    }
+    100% { 
+        transform: translateZ(-80px) rotateX(60deg) rotateY(360deg) scale(0.8);
+    }
+}
+
+@keyframes slinkyChase2 {
+    0% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(-90deg) scale(0.95);
+    }
+    25% { 
+        transform: translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+    50% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(90deg) scale(0.95);
+    }
+    75% { 
+        transform: translateZ(-40px) rotateX(30deg) rotateY(180deg) scale(0.9);
+    }
+    100% { 
+        transform: translateZ(-60px) rotateX(45deg) rotateY(270deg) scale(0.85);
+    }
+}
+
+@keyframes slinkyChase3 {
+    0% { 
+        transform: translateZ(-40px) rotateX(30deg) rotateY(-180deg) scale(0.9);
+    }
+    25% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(-90deg) scale(0.95);
+    }
+    50% { 
+        transform: translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+    75% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(90deg) scale(0.95);
+    }
+    100% { 
+        transform: translateZ(-40px) rotateX(30deg) rotateY(180deg) scale(0.9);
+    }
+}
+
+@keyframes slinkyChase4 {
+    0% { 
+        transform: translateZ(-60px) rotateX(45deg) rotateY(-270deg) scale(0.85);
+    }
+    25% { 
+        transform: translateZ(-40px) rotateX(30deg) rotateY(-180deg) scale(0.9);
+    }
+    50% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(-90deg) scale(0.95);
+    }
+    75% { 
+        transform: translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+    100% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(90deg) scale(0.95);
+    }
+}
+
+@keyframes slinkyChase5 {
+    0% { 
+        transform: translateZ(-80px) rotateX(60deg) rotateY(-360deg) scale(0.8);
+    }
+    25% { 
+        transform: translateZ(-60px) rotateX(45deg) rotateY(-270deg) scale(0.85);
+    }
+    50% { 
+        transform: translateZ(-40px) rotateX(30deg) rotateY(-180deg) scale(0.9);
+    }
+    75% { 
+        transform: translateZ(-20px) rotateX(15deg) rotateY(-90deg) scale(0.95);
+    }
+    100% { 
+        transform: translateZ(0px) rotateX(0deg) rotateY(0deg) scale(1);
+    }
+}
+
+@keyframes slinkyRotate {
+    0% { transform: rotateY(0deg) rotateX(10deg); }
+    100% { transform: rotateY(360deg) rotateX(10deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL INDICATOR
+   ═══════════════════════════════════════════════════════════════ */
+
+.scroll-indicator {
+    width: 2px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-dot {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    left: -1px;
+    animation: scrollDot 2s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes scrollDot {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        top: 36px;
+        opacity: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DROPDOWN STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FLOATING BACKGROUND EFFECTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 70%, transparent 100%);
+    animation: float 6s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+}
+
+.orb-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 20%;
+    animation-delay: 2s;
+    animation-duration: 10s;
+}
+
+.orb-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 4s;
+    animation-duration: 12s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.1);
+        opacity: 0.5;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .disc-container {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .disc-container {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    .disc-stack {
+        animation-duration: 20s; /* Slower on mobile */
+    }
+    
+    .floating-orb {
+        display: none; /* Hide floating orbs on mobile for performance */
+    }
+    
+    .scroll-indicator {
+        display: none; /* Hide scroll indicator on mobile */
+    }
+}
+
+@media (max-width: 640px) {
+    .disc-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    /* Static fallback for very small screens */
+    .disc-stack {
+        animation: none;
+    }
+    
+    .disc {
+        animation: none;
+        position: relative;
+        margin-bottom: -80%;
+    }
+    
+    .disc:nth-child(n+4) {
+        display: none; /* Show only 3 discs on very small screens */
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOVER EFFECTS AND TRANSITIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+.disc:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth transitions for all interactive elements */
+button, .dropdown-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced glow effect for Sign Up button */
+button:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Text selection styling */
+::selection {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Focus states for accessibility */
+button:focus,
+.dropdown-btn:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}

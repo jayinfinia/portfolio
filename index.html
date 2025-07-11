@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jihad El-Amin III - UVA Engineering Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'disc-rotate': 'discRotate 10s linear infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                        'slide-in-left': 'slideInLeft 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.5' },
+                            '100%': { opacity: '1' },
+                        },
+                        discRotate: {
+                            '0%': { transform: 'rotateX(15deg) rotateY(0deg) rotateZ(0deg)' },
+                            '25%': { transform: 'rotateX(20deg) rotateY(90deg) rotateZ(10deg)' },
+                            '50%': { transform: 'rotateX(15deg) rotateY(180deg) rotateZ(0deg)' },
+                            '75%': { transform: 'rotateX(10deg) rotateY(270deg) rotateZ(-10deg)' },
+                            '100%': { transform: 'rotateX(15deg) rotateY(360deg) rotateZ(0deg)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="features.css">
+    <link rel="stylesheet" href="contact.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Navigation styles for fixed header */
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #ef4444;
+        }
+        
+        .nav-link.active {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        
+        /* Section spacing */
+        .section {
+            min-height: 100vh;
+            padding: 60px 0;
+        }
+        
+        .section:first-child {
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        /* About section styles */
+        .skill-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(135deg, #ef4444 0%, #fb923c 100%);
+            border-radius: 4px;
+            transform: translateX(-100%);
+            transition: transform 1s ease-out 0.5s;
+        }
+        
+        .skill-bar.animate .skill-progress {
+            transform: translateX(0);
+        }
+        
+        /* Contact section - remove form styles */
+        .contact-method {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #f3f4f6;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-method:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.15);
+        }
+        
+        .contact-method h3 {
+            margin-bottom: 8px;
+            font-size: 1.125rem;
+            line-height: 1.2;
+        }
+        
+        .contact-method p {
+            font-size: 0.875rem;
+            line-height: 1.3;
+            margin: 0;
+        }
+        
+        /* Tech Skills Physics Animation */
+        .skill-circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s ease-out;
+            user-select: none;
+            z-index: 10;
+            cursor: grab;
+            pointer-events: auto;
+        }
+        
+        .skill-circle:active {
+            cursor: grabbing;
+        }
+        
+        .skill-circle.small {
+            width: 60px;
+            height: 60px;
+            font-size: 14px;
+        }
+        
+        .skill-circle.medium {
+            width: 80px;
+            height: 80px;
+            font-size: 16px;
+        }
+        
+        .skill-circle.large {
+            width: 100px;
+            height: 100px;
+            font-size: 18px;
+        }
+        
+        .skill-circle.python {
+            background: linear-gradient(135deg, #3776ab, #ffd43b);
+        }
+        
+        .skill-circle.javascript {
+            background: #f7df1e;
+            color: black;
+        }
+        
+        .skill-circle.react {
+            background: linear-gradient(135deg, #61dafb, #21a9c7);
+        }
+        
+        .skill-circle.aws {
+            background: linear-gradient(135deg, #ff9900, #232f3e);
+        }
+        
+        .skill-circle.azure {
+            background: #0078d4;
+        }
+        
+        .skill-circle.nodejs {
+            background: #8cc84b;
+        }
+        
+        .skill-circle.docker {
+            background: #2496ed;
+        }
+        
+        .skill-circle.mongodb {
+            background: #47a248;
+        }
+        
+        .skill-circle.git {
+            background: #f05032;
+        }
+        
+        .skill-circle.tensorflow {
+            background: linear-gradient(135deg, #ff6f00, #ff8f00);
+        }
+        
+        .skill-circle.kubernetes {
+            background: #326ce5;
+        }
+        
+        .skill-circle.cpp {
+            background: linear-gradient(135deg, #00599c, #004482);
+        }
+        
+    </style>
+</head>
+<body class="font-inter">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 p-3 md:p-4 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-black font-bold text-xl">
+                Jihad El-Amin
+            </div>
+            
+            <!-- Center Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">Home</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">About</a>
+                <a href="#education" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">Education</a>
+                <a href="#experience" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">Experience</a>
+                <a href="#activities" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">Activities</a>
+                <a href="#projects" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">Projects</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-black transition-colors font-medium">Contact</a>
+            </div>
+            
+            <!-- Right Navigation -->
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-gray-600 hover:text-black transition-colors font-medium text-sm">
+                    Resume
+                </a>
+                <a href="https://www.linkedin.com/in/jihad-el-amin-iii/" target="_blank" class="bg-black text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-800 transition-all duration-300 hover:shadow-lg hover:shadow-black/20 transform hover:scale-105">
+                    Connect
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section h-screen bg-gradient-to-br from-red-400 via-pink-400 to-orange-300 relative overflow-hidden flex items-center justify-center pt-16">
+        <!-- Main Content -->
+        <div class="container mx-auto px-6 md:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Side - Heading -->
+                <div class="text-center lg:text-left">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-tight">
+                        Student<br>
+                        <span class="text-black">Founder</span><br>
+                        Engineer
+                    </h1>
+                    <p class="text-lg md:text-xl text-white/90 mt-6 max-w-lg">
+                        UVA Electrical & Computer Engineering student, Rodman Scholar, and Tech N' Teach founder passionate about AI, data science, and educational technology.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                        <a href="#projects" class="bg-black text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all duration-300 hover:shadow-lg hover:shadow-black/20 transform hover:scale-105">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-black transition-all duration-300">
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Right Side - 3D Animation -->
+                <div class="flex justify-center lg:justify-end">
+                    <div class="disc-container" id="discContainer">
+                        <div class="disc-stack">
+                            <div class="disc disc-1"></div>
+                            <div class="disc disc-2"></div>
+                            <div class="disc disc-3"></div>
+                            <div class="disc disc-4"></div>
+                            <div class="disc disc-5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-white/70 text-sm font-medium">Scroll</span>
+                <div class="scroll-indicator">
+                    <div class="scroll-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Effects -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="floating-orb orb-1"></div>
+            <div class="floating-orb orb-2"></div>
+            <div class="floating-orb orb-3"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section bg-white flex items-center justify-center">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- About Content -->
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-black text-black mb-6">
+                        About <span class="text-transparent bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text">Me</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        I'm Jihad El-Amin III, a Rodman Scholar (top 5% of engineering students) at the University of Virginia studying Electrical and Computer Engineering. As the founder and CEO of Tech N' Teach, I'm passionate about using technology to create educational impact.
+                    </p>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        My experience spans machine learning research, data science, and educational technology. I've built interactive dashboards for energy analysis, developed AI models for commercial applications, and expanded educational programs to over 24 schools, improving student coding test scores by 40%.
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-8 mb-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-black mb-2">4.34</div>
+                            <div class="text-gray-600">HS GPA</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-black mb-2">24+</div>
+                            <div class="text-gray-600">Schools Reached</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-black mb-2">40%</div>
+                            <div class="text-gray-600">Score Improvement</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skills -->
+                <div>
+                    <h3 class="text-2xl font-bold text-black mb-8">Technical Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Python (Fluent)</span>
+                                <span class="text-gray-600">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">JavaScript (Intermediate)</span>
+                                <span class="text-gray-600">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">C++ (Intermediate)</span>
+                                <span class="text-gray-600">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Jupyter Notebooks (Fluent)</span>
+                                <span class="text-gray-600">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-700">Data Science & Power BI</span>
+                                <span class="text-gray-600">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-black mb-6">
+                    My <span class="text-transparent bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text">Education</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Academic journey and achievements that shaped my engineering foundation.
+                </p>
+            </div>
+            
+            <!-- Education Timeline -->
+            <div class="max-w-4xl mx-auto">
+                <!-- University of Virginia -->
+                <div class="education-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 transition-all duration-300 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                        <div class="lg:col-span-2">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                                    UVA
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-black">University of Virginia</h3>
+                                    <p class="text-lg text-gray-600">Bachelor of Science in Electrical and Computer Engineering</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Program:</strong> Electrical and Computer Engineering</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Honors:</strong> Rodman Scholar (Top 5% Engineering Student)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-red-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Additional:</strong> Hispanic Scholarship Fund Scholar</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full font-semibold">
+                                2024 - 2028
+                            </div>
+                            <p class="text-gray-600 mt-2">Expected May 2028</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- High School -->
+                <div class="education-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 transition-all duration-300 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                        <div class="lg:col-span-2">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-xl flex items-center justify-center text-white font-bold text-sm">
+                                    HS
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-black">New Century Technology High School</h3>
+                                    <p class="text-lg text-gray-600">Huntsville, AL</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>GPA:</strong> 4.34 (Unweighted 3.94)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Honors:</strong> Top Computer Science Student, A Honor Roll</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Achievement:</strong> Top Engineering Student</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+                                2020 - 2024
+                            </div>
+                            <p class="text-gray-600 mt-2">Graduated 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cornell University Pre-College -->
+                <div class="education-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 transition-all duration-300 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                        <div class="lg:col-span-2">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-teal-400 rounded-xl flex items-center justify-center text-white font-bold text-sm">
+                                    CORN
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-black">Cornell University</h3>
+                                    <p class="text-lg text-gray-600">Pre-College Program - Remote</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Course:</strong> 6-week Cognitive Science Course</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>GPA:</strong> 4.0</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Focus:</strong> Advanced study in cognitive science principles</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center lg:text-right">
+                            <div class="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">
+                                Summer 2023
+                            </div>
+                            <p class="text-gray-600 mt-2">Completed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-black mb-6">
+                    Professional <span class="text-transparent bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text">Experience</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Real-world application of engineering skills through internships and projects.
+                </p>
+            </div>
+            
+            <!-- Experience Timeline -->
+            <div class="max-w-5xl mx-auto">
+                <!-- Tech N' Teach - Startup Founder & CEO -->
+                <div class="experience-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 hover:shadow-xl transition-all duration-300 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <div class="lg:col-span-3">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-black">Startup Founder & CEO</h3>
+                                    <p class="text-lg text-purple-600 font-semibold">Tech N' Teach</p>
+                                    <p class="text-gray-600">September 2023 – Present</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Expanded co-op program to over 24 schools, reaching hundreds of students</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Increased student coding test scores by 40% through innovative teaching methods</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Championed intergenerational collaboration and community engagement in tech education</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Established project-based company pairing senior and junior students to teach STEM in local schools</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Leadership</span>
+                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">Education</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">STEM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Energy Alabama - Research & Data Intern -->
+                <div class="experience-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 hover:shadow-xl transition-all duration-300 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <div class="lg:col-span-3">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-teal-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-black">Research & Data Intern</h3>
+                                    <p class="text-lg text-green-600 font-semibold">Energy Alabama</p>
+                                    <p class="text-gray-600">March 2024 – August 2024</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Built interactive Power BI dashboards to visualize energy production across Alabama</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Applied data science methods to streamline insight extraction and support policy briefs</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Conducted in-depth data analysis of power plant generation trends using EIA-923 datasets</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Collaborated with energy experts to identify clean energy transition opportunities through statistical modeling</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Power BI</span>
+                            <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">Data Science</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Python</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Brown Technologies - Machine Learning Intern -->
+                <div class="experience-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 hover:shadow-xl transition-all duration-300">
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <div class="lg:col-span-3">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-black">Machine Learning Intern</h3>
+                                    <p class="text-lg text-blue-600 font-semibold">Brown Technologies Incorporated</p>
+                                    <p class="text-gray-600">December 2023 – August 2024</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Implemented a streamlined model deployment pipeline</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Led data science initiatives and mentored others through project-based learning</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Increased corpus size by 20%, enriching dataset diversity and enhancing model accuracy</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
+                                    <span>Developed advanced AI models using Python and Jupyter Notebooks for commercial and DoD applications</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Python</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">Machine Learning</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Jupyter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="section bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-black mb-6">
+                    Extracurricular <span class="text-transparent bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text">Activities</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Leadership roles and community involvement that complement my academic journey.
+                </p>
+            </div>
+            
+            <!-- Activities Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Huntsville Kappa League President -->
+                <div class="activity-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-red-200 hover:shadow-xl transition-all duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center text-white mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-black mb-4">Kappa League President</h3>
+                    <p class="text-gray-600 mb-4">Led the Huntsville Kappa League as President from 2022-2024, organizing community service initiatives and mentoring programs for young men.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Leadership</span>
+                        <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Community Service</span>
+                    </div>
+                </div>
+                
+                <!-- Student Government President -->
+                <div class="activity-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-xl flex items-center justify-center text-white mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-black mb-4">Student Government President</h3>
+                    <p class="text-gray-600 mb-4">Served as Student Government President (2023-2024), representing student body interests and leading campus-wide initiatives and policy changes.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Leadership</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Public Speaking</span>
+                    </div>
+                </div>
+                
+                <!-- National Honor Society President -->
+                <div class="activity-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100 hover:border-yellow-200 hover:shadow-xl transition-all duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center text-white mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-black mb-4">National Honor Society President</h3>
+                    <p class="text-gray-600 mb-4">Led the National Honor Society as President (2023-2024), coordinating academic excellence initiatives and community service projects.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Academic Excellence</span>
+                        <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Leadership</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-gradient-to-br from-red-50 via-pink-50 to-orange-50">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-black mb-6">
+                    Featured <span class="text-transparent bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text">Projects</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Projects showcasing my experience in data science, machine learning, educational technology, and software development.
+                </p>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 - Energy Alabama Dashboard -->
+                <div class="feature-card group">
+                    <div class="feature-icon">
+                        <div class="icon-container">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-black mb-4">Alabama Energy Analytics</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Built interactive Power BI dashboards to visualize energy production across Alabama, analyzing EIA-923 datasets and supporting clean energy policy briefs.
+                    </p>
+                    <div class="feature-glow"></div>
+                </div>
+                
+                <!-- Project 2 - Tech N' Teach Platform -->
+                <div class="feature-card group">
+                    <div class="feature-icon">
+                        <div class="icon-container">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-black mb-4">Tech N' Teach Platform</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Founded and developed an educational platform that pairs senior and junior students to teach STEM. Expanded to 24+ schools with 40% improvement in coding test scores.
+                    </p>
+                    <div class="feature-glow"></div>
+                </div>
+                
+                <!-- Project 3 - AI Model Deployment Pipeline -->
+                <div class="feature-card group">
+                    <div class="feature-icon">
+                        <div class="icon-container">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-black mb-4">ML Model Deployment Pipeline</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Implemented a streamlined machine learning model deployment pipeline using Python and Jupyter Notebooks for commercial and DoD applications at Brown Technologies.
+                    </p>
+                    <div class="feature-glow"></div>
+                </div>
+                
+                <!-- Project 4 - Data Science Toolkit -->
+                <div class="feature-card group">
+                    <div class="feature-icon">
+                        <div class="icon-container">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-black mb-4">Statistical Modeling Tools</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Developed statistical modeling tools in Python to identify clean energy transition opportunities, increasing dataset diversity by 20% and enhancing model accuracy.
+                    </p>
+                    <div class="feature-glow"></div>
+                </div>
+                
+                <!-- Project 5 - Educational Assessment System -->
+                <div class="feature-card group">
+                    <div class="feature-icon">
+                        <div class="icon-container">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-black mb-4">Educational Assessment System</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Created innovative teaching methods and assessment tools for STEM education, resulting in 40% improvement in student coding test scores across multiple schools.
+                    </p>
+                    <div class="feature-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-gradient-to-br from-red-50 via-pink-50 to-orange-50 flex items-center justify-center">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-black mb-6">
+                    Let's <span class="text-transparent bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text">Connect</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    I'm always excited to discuss new opportunities, projects, and ideas. Let's build something amazing together.
+                </p>
+            </div>
+            
+            <!-- Contact Methods -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/jihad-el-amin-iii/" target="_blank" class="contact-method group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center text-white mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-black">LinkedIn</h3>
+                    <p class="text-gray-600">Connect professionally</p>
+                </a>
+                
+                <!-- GitHub -->
+                <a href="https://github.com/jayinfinia" target="_blank" class="contact-method group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center text-white mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-black">GitHub</h3>
+                    <p class="text-gray-600">View my code</p>
+                </a>
+                
+                <!-- Email -->
+                <a href="mailto:jihad.elamin3@gmail.com" class="contact-method group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center text-white mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-black">Email</h3>
+                    <p class="text-gray-600">Send me a message</p>
+                </a>
+                
+                <!-- Location -->
+                <div class="contact-method">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-orange-400 rounded-xl flex items-center justify-center text-white mb-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-black">Location</h3>
+                    <p class="text-gray-600">Charlottesville, VA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-black text-white">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold text-xl mb-4">JIHAD</h3>
+                    <p class="text-gray-400 mb-4">
+                        UVA Engineering student building the future through technology.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Portfolio</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Skills</a></li>
+                        <li><a href="#experience" class="text-gray-400 hover:text-white transition-colors">Experience</a></li>
+                        <li><a href="#education" class="text-gray-400 hover:text-white transition-colors">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">About</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Bio</a></li>
+                        <li><a href="#activities" class="text-gray-400 hover:text-white transition-colors">Activities</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Resume</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.linkedin.com/in/jihad-el-amin-iii/" target="_blank" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a></li>
+                        <li><a href="https://github.com/jayinfinia" target="_blank" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Twitter</a></li>
+                        <li><a href="mailto:jihad.elamin3@gmail.com" class="text-gray-400 hover:text-white transition-colors">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2024 Jihad El-Amin III - UVA Engineering Student. Built with passion and code.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Tech Skills Physics Animation Section -->
+    <section id="tech-skills-animation" class="relative bg-black h-60 overflow-hidden">
+        <div class="container mx-auto px-6 md:px-8 relative h-full">
+            <!-- Physics Canvas Container -->
+            <div id="physics-container" class="absolute inset-0 pointer-events-none">
+                <!-- Skills circles will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="features.js"></script>
+    <script>
+        // Smooth scrolling navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation active state
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            // Update active nav link based on scroll position
+            function updateActiveNav() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav();
+            
+            // Animate skill bars when about section is in view
+            const skillBars = document.querySelectorAll('.skill-bar');
+            const aboutSection = document.getElementById('about');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillBars.forEach((bar, index) => {
+                            setTimeout(() => {
+                                bar.classList.add('animate');
+                            }, index * 200);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(aboutSection);
+            
+            // Physics-based skill circles animation
+            const skillsData = [
+                { name: 'Python', class: 'python', text: 'PY', size: 'large' },
+                { name: 'JavaScript', class: 'javascript', text: 'JS', size: 'large' },
+                { name: 'React', class: 'react', text: 'REACT', size: 'medium' },
+                { name: 'AWS', class: 'aws', text: 'AWS', size: 'large' },
+                { name: 'Azure', class: 'azure', text: 'AZURE', size: 'medium' },
+                { name: 'Node.js', class: 'nodejs', text: 'NODE', size: 'medium' },
+                { name: 'Docker', class: 'docker', text: 'DOCKER', size: 'small' },
+                { name: 'MongoDB', class: 'mongodb', text: 'MONGO', size: 'medium' },
+                { name: 'Git', class: 'git', text: 'GIT', size: 'small' },
+                { name: 'TensorFlow', class: 'tensorflow', text: 'TF', size: 'medium' },
+                { name: 'Kubernetes', class: 'kubernetes', text: 'K8S', size: 'small' },
+                { name: 'C++', class: 'cpp', text: 'C++', size: 'medium' }
+            ];
+            
+            let circles = [];
+            let animationId;
+            let container;
+            let containerRect;
+            let isDragging = false;
+            let draggedCircle = null;
+            let mouseX = 0;
+            let mouseY = 0;
+            let lastMouseX = 0;
+            let lastMouseY = 0;
+            
+            function initPhysicsAnimation() {
+                container = document.getElementById('physics-container');
+                if (!container) return;
+                
+                containerRect = container.getBoundingClientRect();
+                
+                // Create circles with physics properties
+                skillsData.forEach((skill, index) => {
+                    setTimeout(() => {
+                        createSkillCircle(skill);
+                    }, index * 300 + Math.random() * 200);
+                });
+                
+                // Start physics loop
+                animatePhysics();
+            }
+            
+            function createSkillCircle(skill) {
+                const circle = document.createElement('div');
+                circle.className = `skill-circle ${skill.class} ${skill.size}`;
+                circle.textContent = skill.text;
+                circle.title = skill.name;
+                
+                // Get circle size from CSS
+                container.appendChild(circle);
+                const circleRect = circle.getBoundingClientRect();
+                const radius = circleRect.width / 2;
+                
+                // Physics properties
+                const physicsCircle = {
+                    element: circle,
+                    x: Math.random() * (containerRect.width - radius * 2) + radius,
+                    y: -radius,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: Math.random() * 2 + 1,
+                    radius: radius,
+                    mass: radius / 25,
+                    bounceX: 0.7,
+                    bounceY: 0.6,
+                    friction: 0.98,
+                    gravity: 0.3,
+                    isDragging: false
+                };
+                
+                // Add drag event listeners
+                circle.addEventListener('mousedown', (e) => startDrag(e, physicsCircle));
+                circle.addEventListener('touchstart', (e) => startDrag(e.touches[0], physicsCircle));
+                
+                circles.push(physicsCircle);
+                updateCirclePosition(physicsCircle);
+            }
+            
+            function startDrag(e, circle) {
+                isDragging = true;
+                draggedCircle = circle;
+                circle.isDragging = true;
+                
+                const rect = container.getBoundingClientRect();
+                mouseX = e.clientX - rect.left;
+                mouseY = e.clientY - rect.top;
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
+                
+                e.preventDefault();
+            }
+            
+            function handleMouseMove(e) {
+                if (!isDragging || !draggedCircle) return;
+                
+                const rect = container.getBoundingClientRect();
+                const newMouseX = e.clientX - rect.left;
+                const newMouseY = e.clientY - rect.top;
+                
+                draggedCircle.x = newMouseX;
+                draggedCircle.y = newMouseY;
+                
+                // Calculate velocity based on mouse movement
+                draggedCircle.vx = (newMouseX - lastMouseX) * 0.5;
+                draggedCircle.vy = (newMouseY - lastMouseY) * 0.5;
+                
+                lastMouseX = newMouseX;
+                lastMouseY = newMouseY;
+                
+                e.preventDefault();
+            }
+            
+            function handleMouseUp() {
+                if (draggedCircle) {
+                    draggedCircle.isDragging = false;
+                }
+                isDragging = false;
+                draggedCircle = null;
+            }
+            
+            // Add global mouse event listeners
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+            document.addEventListener('touchmove', (e) => handleMouseMove(e.touches[0]));
+            document.addEventListener('touchend', handleMouseUp);
+            
+            function updateCirclePosition(circle) {
+                circle.element.style.left = `${circle.x - circle.radius}px`;
+                circle.element.style.top = `${circle.y - circle.radius}px`;
+            }
+            
+            function animatePhysics() {
+                const containerHeight = container.offsetHeight;
+                const containerWidth = container.offsetWidth;
+                
+                circles.forEach((circle, index) => {
+                    // Skip physics for dragged circles
+                    if (circle.isDragging) {
+                        updateCirclePosition(circle);
+                        return;
+                    }
+                    
+                    // Apply gravity
+                    circle.vy += circle.gravity;
+                    
+                    // Apply velocity
+                    circle.x += circle.vx;
+                    circle.y += circle.vy;
+                    
+                    // Apply friction
+                    circle.vx *= circle.friction;
+                    circle.vy *= circle.friction;
+                    
+                    // Boundary collisions
+                    if (circle.x - circle.radius <= 0) {
+                        circle.x = circle.radius;
+                        circle.vx = Math.abs(circle.vx) * circle.bounceX;
+                    }
+                    
+                    if (circle.x + circle.radius >= containerWidth) {
+                        circle.x = containerWidth - circle.radius;
+                        circle.vx = -Math.abs(circle.vx) * circle.bounceX;
+                    }
+                    
+                    if (circle.y + circle.radius >= containerHeight) {
+                        circle.y = containerHeight - circle.radius;
+                        circle.vy = -Math.abs(circle.vy) * circle.bounceY;
+                        
+                        // Settle at bottom
+                        if (Math.abs(circle.vy) < 0.5) {
+                            circle.vy = 0;
+                        }
+                    }
+                    
+                    // Circle-to-circle collisions
+                    for (let i = index + 1; i < circles.length; i++) {
+                        const other = circles[i];
+                        const dx = other.x - circle.x;
+                        const dy = other.y - circle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const minDistance = circle.radius + other.radius;
+                        
+                        if (distance < minDistance) {
+                            // Collision response
+                            const angle = Math.atan2(dy, dx);
+                            const sin = Math.sin(angle);
+                            const cos = Math.cos(angle);
+                            
+                            // Separate circles
+                            const overlap = minDistance - distance;
+                            const separationX = overlap * cos * 0.5;
+                            const separationY = overlap * sin * 0.5;
+                            
+                            circle.x -= separationX;
+                            circle.y -= separationY;
+                            other.x += separationX;
+                            other.y += separationY;
+                            
+                            // Exchange velocities (simplified)
+                            const tempVx = circle.vx;
+                            const tempVy = circle.vy;
+                            circle.vx = other.vx * 0.8;
+                            circle.vy = other.vy * 0.8;
+                            other.vx = tempVx * 0.8;
+                            other.vy = tempVy * 0.8;
+                        }
+                    }
+                    
+                    updateCirclePosition(circle);
+                });
+                
+                animationId = requestAnimationFrame(animatePhysics);
+            }
+            
+            // Initialize when section comes into view
+            const techSection = document.getElementById('tech-skills-animation');
+            if (techSection) {
+                const techObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && circles.length === 0) {
+                            initPhysicsAnimation();
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                techObserver.observe(techSection);
+            }
+        });
+    </script>
+</body>
+</html>

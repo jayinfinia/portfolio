@@ -1,0 +1,511 @@
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT PAGE - JETON-INSPIRED DESIGN
+   Modern contact forms with advanced animations
+   ═══════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT STATS ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+.contact-stat-icon {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%);
+    border-radius: 20px;
+    border: 2px solid rgba(239, 68, 68, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stat-ring {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    border-radius: 24px;
+    animation: pulseRing 2s ease-out infinite;
+}
+
+.contact-stat-icon:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(251, 146, 60, 0.15) 100%);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MORPHING BACKGROUND ELEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.contact-morph {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(251, 146, 60, 0.05) 100%);
+    animation: morph 8s ease-in-out infinite;
+    filter: blur(1px);
+}
+
+.morph-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.morph-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2.5s;
+}
+
+.morph-3 {
+    width: 120px;
+    height: 120px;
+    bottom: 20%;
+    left: 60%;
+    animation-delay: 5s;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ADVANCED FORM STYLING
+   ═══════════════════════════════════════════════════════════════ */
+
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-input {
+    width: 100%;
+    padding: 16px 0 8px 0;
+    border: none;
+    border-bottom: 2px solid #e5e7eb;
+    background: transparent;
+    font-size: 16px;
+    color: #111827;
+    transition: all 0.3s ease;
+    outline: none;
+    appearance: none;
+}
+
+.form-input:focus {
+    border-bottom-color: #ef4444;
+}
+
+.form-input:focus + .form-line,
+.form-input:valid + .form-line {
+    transform: scaleX(1);
+}
+
+.form-input:focus ~ .form-label,
+.form-input:valid ~ .form-label {
+    color: #ef4444;
+    transform: translateY(-2px);
+}
+
+.form-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(135deg, #ef4444 0%, #fb923c 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+/* Enhanced Select Styling */
+.form-input[type="select"],
+select.form-input {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0 center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+    padding-right: 24px;
+}
+
+/* Textarea Styling */
+textarea.form-input {
+    resize: vertical;
+    min-height: 100px;
+    padding-top: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SUBMIT BUTTON WITH LOADING STATE
+   ═══════════════════════════════════════════════════════════════ */
+
+.submit-btn {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, #ef4444 0%, #fb923c 100%);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(239, 68, 68, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.btn-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.submit-btn.loading .btn-text,
+.submit-btn.loading .btn-arrow {
+    opacity: 0;
+}
+
+.submit-btn.loading .btn-loading {
+    opacity: 1;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SUCCESS MESSAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+.success-message {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-top: 16px;
+    animation: slideUp 0.5s ease-out;
+}
+
+.success-message.show {
+    display: flex;
+}
+
+.success-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT METHODS
+   ═══════════════════════════════════════════════════════════════ */
+
+.contact-method {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.contact-method:hover {
+    background: rgba(239, 68, 68, 0.05);
+    transform: translateX(8px);
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #ef4444 0%, #fb923c 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.contact-method:hover .contact-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SOCIAL LINKS
+   ═══════════════════════════════════════════════════════════════ */
+
+.social-link {
+    width: 48px;
+    height: 48px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FAQ SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+.faq-container {
+    space-y: 4;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1);
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 24px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+    color: #111827;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(239, 68, 68, 0.02);
+}
+
+.faq-icon {
+    color: #6b7280;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: #ef4444;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+}
+
+.faq-answer p {
+    padding: 0 24px 24px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .contact-morph {
+        display: none; /* Hide morphing elements on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .form-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .submit-btn {
+        padding: 18px 24px;
+        font-size: 16px;
+    }
+    
+    .contact-method {
+        padding: 16px;
+    }
+    
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .faq-question {
+        padding: 20px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-stat-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .stat-ring {
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+    }
+    
+    .social-link {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY & PERFORMANCE
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-morph,
+    .stat-ring,
+    .loading-spinner {
+        animation: none;
+    }
+    
+    .submit-btn:hover,
+    .contact-method:hover,
+    .social-link:hover {
+        transform: none;
+    }
+}
+
+/* Focus states for accessibility */
+.form-input:focus {
+    outline: 2px solid rgba(239, 68, 68, 0.5);
+    outline-offset: 2px;
+}
+
+.submit-btn:focus,
+.faq-question:focus,
+.social-link:focus {
+    outline: 2px solid rgba(239, 68, 68, 0.5);
+    outline-offset: 2px;
+}
+
+/* Text selection styling */
+::selection {
+    background: rgba(239, 68, 68, 0.2);
+    color: black;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOADING STATES
+   ═══════════════════════════════════════════════════════════════ */
+
+.loading-state {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

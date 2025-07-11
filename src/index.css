@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fallback styles for custom fluid typography */
+.text-fluid-4xl {
+  font-size: clamp(3rem, 2.5rem + 2.5vw, 5rem);
+}
+
+.text-fluid-3xl {
+  font-size: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+}
+
+.text-fluid-2xl {
+  font-size: clamp(2rem, 1.7rem + 1.5vw, 3rem);
+}
+
+.text-fluid-xl {
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+}
+
+.text-fluid-lg {
+  font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem);
+}
+
+.text-fluid-base {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+}
+
+.text-fluid-sm {
+  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+}
+
+/* Custom color fallbacks */
+.bg-jeton-orange {
+  background-color: #f73b20;
+}
+
+.text-jeton-orange {
+  color: #f73b20;
+}
+
+.bg-jeton-dark {
+  background-color: #1a1a1a;
+}
+
+.text-jeton-dark {
+  color: #1a1a1a;
+}
+
+.bg-jeton-light {
+  background-color: #f8f8f8;
+}
+
+.text-jeton-light {
+  color: #f8f8f8;
+}
+
+.text-jeton-gray {
+  color: #6b6b6b;
+}
+
+/* Custom spacing fallbacks */
+.py-30 {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+}
+
+/* Orange gradient utilities */
+.bg-gradient-orange {
+  background: linear-gradient(135deg, #f73b20 0%, #ff6b35 50%, #ff8c42 100%);
+}
+
+.bg-gradient-orange-light {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 50%, #ffab5e 100%);
+}
+
+.bg-gradient-orange-dark {
+  background: linear-gradient(135deg, #e63312 0%, #f73b20 50%, #ff6b35 100%);
+}
+
+.bg-gradient-radial-orange {
+  background: radial-gradient(circle at center, #f73b20 0%, #ff6b35 50%, rgba(247, 59, 32, 0.1) 100%);
+}
+
+/* Subtle parallax animations */
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes orange-glow {
+  0%, 100% { 
+    box-shadow: 0 0 15px rgba(247, 59, 32, 0.2);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 25px rgba(247, 59, 32, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes rotate-3d {
+  0% { transform: rotateY(0deg) rotateX(0deg); }
+  25% { transform: rotateY(10deg) rotateX(5deg); }
+  50% { transform: rotateY(0deg) rotateX(10deg); }
+  75% { transform: rotateY(-10deg) rotateX(5deg); }
+  100% { transform: rotateY(0deg) rotateX(0deg); }
+}
+
+.animate-subtle-float {
+  animation: subtle-float 8s ease-in-out infinite;
+}
+
+.animate-orange-glow {
+  animation: orange-glow 4s ease-in-out infinite;
+}
+
+.animate-3d {
+  animation: rotate-3d 10s ease-in-out infinite;
+}
+
+/* 3D UVA Text Effect */
+.text-3d-uva {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 6vw, 8rem);
+  background: linear-gradient(135deg, #f73b20 0%, #ff6b35 50%, #ff8c42 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 
+    2px 2px 0px rgba(247, 59, 32, 0.3),
+    4px 4px 0px rgba(247, 59, 32, 0.2),
+    6px 6px 0px rgba(247, 59, 32, 0.1),
+    8px 8px 20px rgba(247, 59, 32, 0.4);
+  transform: perspective(500px) rotateX(15deg) rotateY(-10deg);
+  letter-spacing: 0.1em;
+}
+
+/* Glass morphism effect */
+.glass-morphism {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-morphism-dark {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
